@@ -25,7 +25,7 @@ class CityService {
 
   async update(id, city) {
     if (!id) {
-      throw new Error('You do not insert city');
+      throw new Error('You do not select city');
     }
     const updatedCity = await City.findByIdAndUpdate(id, city, { new: true });
     return updatedCity;

@@ -26,6 +26,7 @@
   - update - update current profile info;
 
 3. eventController - request info about events for selected city:
+   **time_end** and **time_start** schould be in format "18:00" and only with ":00" at the end, **time_end**=**time_start**+2
 
 - implement 4 methods:
   - create - create new event;

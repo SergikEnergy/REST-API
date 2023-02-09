@@ -1,62 +1,63 @@
-import CityService from './CityService.js';
+import EventService from './EventService.js';
 
-class CityController {
+class EventController {
   async create(req, res) {
     try {
-      const city = await CityService.create(req.body);
-      return res.json(city);
+      const event = await EventService.create(req.body);
+      return res.json(event);
     } catch (error) {
       let errorObj = { error: error.message, data: false };
       res.status(500).json(errorObj);
-      console.log('ERROR BY CREATING CITY');
+      console.log('ERROR BY CREATING EVENT');
     }
   }
 
   async getAll(req, res) {
     try {
-      const cities = await CityService.getAll();
-      return res.status(200).json(cities);
+      const events = await EventService.getAll();
+      return res.status(200).json(events);
     } catch (error) {
       let errorObj = { error: error.message, data: false };
       res.status(500).json(errorObj);
-      console.log('ERROR BY GETTING ALL CITIES');
+      console.log('ERROR BY GETTING ALL EVENTS');
     }
   }
 
   async getOne(req, res) {
     try {
       const id = req.params.id;
-      const uniqueCity = await CityService.getOne(id);
-      return res.json(uniqueCity);
+      const uniqueEvent = await EventService.getOne(id);
+      return res.json(uniqueEvent);
     } catch (error) {
       let errorObj = { error: error.message, data: false };
       res.status(500).json(errorObj);
-      console.log('ERROR BY GETTING CITY with ID');
+      console.log('ERROR BY GETTING EVENT with ID');
     }
   }
+
   async update(req, res) {
     try {
       const id = req.params.id;
-      const updatedCity = await CityService.update(id, req.body);
-      return res.json(updatedCity);
+      const updatedEvent = await EventService.update(id, req.body);
+      return res.json(updatedEvent);
     } catch (error) {
       let errorObj = { error: error.message, data: false };
       res.status(500).json(errorObj);
-      console.log('ERROR BY UPDATING CITY');
+      console.log('ERROR BY UPDATING EVENT');
     }
   }
 
   async delete(req, res) {
     try {
       const id = req.params.id;
-      const city = await CityService.delete(id);
-      return res.status(200).json(city);
+      const event = await EventService.delete(id);
+      return res.status(200).json(event);
     } catch (error) {
       let errorObj = { error: error.message, data: false };
       res.status(500).json(errorObj);
-      console.log('ERROR BY DELETING CITY');
+      console.log('ERROR BY DELETING EVENT');
     }
   }
 }
 
-export default new CityController();
+export default new EventController();
