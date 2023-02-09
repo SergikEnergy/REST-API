@@ -1,0 +1,21 @@
+{
+  "name": "rest-api",
+  "version": "1.0.0",
+  "description": "try server",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "serg",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.9.0"
+  },
+  "devDependencies": {
+    "generate-schema": "^2.6.0",
+    "nodemon": "^2.0.20"
+  }
+}
