@@ -4,7 +4,6 @@ class UserController {
   async create(req, res) {
     try {
       const user = await UserService.create(req.body);
-      console.log(req.body);
       res.json(user);
     } catch (error) {
       let errorObj = { error: error.message, data: false };

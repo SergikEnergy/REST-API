@@ -6,7 +6,6 @@ class UserService {
     if (isExist.length === 0) {
       const createdUser = await Profile.create(user);
       return createdUser;
-      b;
     } else return { error: 'this user already exists in database' };
   }
 

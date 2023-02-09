@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const Place = new mongoose.Schema({
-  address: { type: String, require: false },
+  address: { type: String, require: false, default: '' },
   name: { type: String, require: true, unique: true },
   events: { type: [String], require: false, default: [] },
   coordinates: {

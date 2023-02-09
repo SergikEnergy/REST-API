@@ -1,6 +1,7 @@
 import express from 'express';
-import router from './resources/cities/Router.js';
+
 // import middleware from './app.js';
+import router from './resources/cities/Router.js';
 import userRouter from './resources/profiles/userRouter.js';
 import eventRouter from './resources/events/eventRouter.js';
 import placeRouter from './resources/places/placeRouter.js';

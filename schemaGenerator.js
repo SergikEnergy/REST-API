@@ -2,13 +2,20 @@ import mongoose from 'mongoose';
 import generateSchema from 'generate-schema';
 
 let MongooseSchema = generateSchema.mongoose({
-  name: 'Ground1',
-  address: 'adress1',
+  coach: true,
+  player: false,
   events: ['eventID1', 'eventID2'],
-  coordinates: {
-    latitude: '11.11',
-    longitude: '22.22',
+  nick_name: 'IvanIvan',
+  personal_data: {
+    weight: 90,
+    height: 185,
+    first_name: 'Ivan',
+    last_name: 'Ivanov',
+    games: ['basketball', 'volleyball'],
   },
-  kinds: ['basketball', 'football', 'volleyball'],
+  urlsToImg: {
+    avatar: '../../urlToAvatar',
+    background: '../urlToBG',
+  },
 });
 console.log(MongooseSchema);
