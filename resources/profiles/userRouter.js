@@ -7,7 +7,7 @@ userRouter.post('/profiles', UserController.create);
 
 userRouter.get('/profiles/:id', UserController.getInfo);
 
-userRouter.put('/profiles', UserController.update);
+userRouter.put('/profiles/:id', UserController.update);
 
 userRouter.delete('/profiles/:id', UserController.delete);
 

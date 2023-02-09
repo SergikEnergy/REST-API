@@ -1,12 +1,10 @@
-import Profile from './Profile.js';
+import UserService from './UserService.js';
 
 class UserController {
   async create(req, res) {
     try {
-      const { coach, player, events, personal_data, urlsToImg } = req.body;
-      const user = await Profile.create({ coach, player, events, personal_data, urlsToImg });
+      const user = await UserService.create(req.body);
       console.log(req.body);
-      console.log(res.status);
       res.json(user);
     } catch (error) {
       let errorObj = { error: error.message, data: false };
@@ -18,10 +16,7 @@ class UserController {
   async getInfo(req, res) {
     try {
       const id = req.params.id;
-      if (!id) {
-        return res.status(400).json({ message: 'ID not found', data: false });
-      }
-      const currentUser = await Profile.findById(id);
+      const currentUser = await UserService.getInfo(id);
       return res.json(currentUser);
     } catch (error) {
       console.log(error);
@@ -33,11 +28,8 @@ class UserController {
 
   async update(req, res) {
     try {
-      const user = req.body;
-      if (!user._id) {
-        return res.status(400).json({ message: 'ID checked user not found', data: false });
-      }
-      const updatedUser = await Profile.findByIdAndUpdate(user._id, user, { new: true });
+      const id = req.params.id;
+      const updatedUser = await UserService.update(id, req.body);
       return res.json(updatedUser);
     } catch (error) {
       let errorObj = { error: error.message, data: false };
@@ -47,6 +39,8 @@ class UserController {
   }
   async delete(req, res) {
     try {
+      const id = req.params.id;
+      const user = await UserService.delete(id);
     } catch (error) {
       let errorObj = { error: error.message, data: false };
       res.status(500).json(errorObj);

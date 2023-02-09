@@ -3,11 +3,7 @@ import CityController from './CityController.js';
 
 const router = new Router();
 
-router.post('/cities', (req, res, next) => {
-  try {
-    CityController.create(req.data, res);
-  } catch (error) {}
-});
+router.post('/cities', CityController.create);
 
 router.get('/cities', CityController.getAll);
 

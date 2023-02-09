@@ -1,6 +1,6 @@
 import express from 'express';
 import router from './resources/cities/Router.js';
-import userRouter from './userRouter.js';
+import userRouter from './resources/profiles/userRouter.js';
 
 export default function middleware() {
   const app = express();

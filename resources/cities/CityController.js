@@ -1,14 +1,10 @@
-import City from './City.js';
 import CityService from './CityService.js';
 
 class CityController {
   async create(req, res) {
     try {
       const city = await CityService.create(req.body);
-      // console.log(req.body);
-      // console.log(res.status);
-      return city;
-      // res.json(city);
+      return res.json(city);
     } catch (error) {
       let errorObj = { error: error.message, data: false };
       res.status(500).json(errorObj);
@@ -29,7 +25,8 @@ class CityController {
 
   async getOne(req, res) {
     try {
-      const uniqueCity = await CityService.getOne(req.params.id);
+      const id = req.params.id;
+      const uniqueCity = await CityService.getOne(id);
       return res.json(uniqueCity);
     } catch (error) {
       // console.log(error);
@@ -40,7 +37,8 @@ class CityController {
   }
   async update(req, res) {
     try {
-      const updatedCity = await CityService.update(req.body);
+      const id = req.params.id;
+      const updatedCity = await CityService.update(id, req.body);
       return res.json(updatedCity);
     } catch (error) {
       let errorObj = { error: error.message, data: false };
@@ -51,7 +49,8 @@ class CityController {
 
   async delete(req, res) {
     try {
-      const city = await CityService.delete(req.params.id);
+      const id = req.params.id;
+      const city = await CityService.delete(id);
       return res.status(200).json(city);
     } catch (error) {
       let errorObj = { error: error.message, data: false };

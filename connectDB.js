@@ -6,9 +6,10 @@ export default async function connectDB() {
     // const MONGO_DB=process.env.MONGO_DB_URL || DEV_DB_URL;
 
     mongoose.set('strictQuery', false);
-    await mongoose.connect(DEV_DB_URL);
+    await mongoose.connect(DEV_DB_URL, { useUnifiedTopology: true, useNewUrlParser: true });
     console.log('connect to mongoDB is successful...');
   } catch (e) {
     console.log(e, 'failed connection to mongoDB... check your data.');
+    // throw new Error('failed connection to mongoDB');
   }
 }

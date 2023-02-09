@@ -2,8 +2,11 @@ import City from './City.js';
 
 class CityService {
   async create(city) {
-    const createdCity = await City.create(city);
-    return createdCity;
+    const isExist = await this.checkExisting(city);
+    if (isExist.length === 0) {
+      const createdCity = await City.create(city);
+      return createdCity;
+    } else return { error: 'this city already exists in database' };
   }
 
   async getAll() {
@@ -15,15 +18,16 @@ class CityService {
     if (!id) {
       throw new Error('You do not show id');
     }
+
     const uniqueCity = await City.findById(id);
     return uniqueCity;
   }
 
-  async update(city) {
-    if (!city._id) {
+  async update(id, city) {
+    if (!id) {
       throw new Error('You do not insert city');
     }
-    const updatedCity = await City.findByIdAndUpdate(city._id, city, { new: true });
+    const updatedCity = await City.findByIdAndUpdate(id, city, { new: true });
     return updatedCity;
   }
 
@@ -33,6 +37,10 @@ class CityService {
     }
     const city = await City.findByIdAndDelete(id);
     return city;
+  }
+  async checkExisting(city) {
+    const checkCity = await City.find({ name: `${city.name}` });
+    return checkCity;
   }
 }
 
