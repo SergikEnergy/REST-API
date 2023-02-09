@@ -11,6 +11,6 @@ eventRouter.get('/events/:id', EventController.getOne);
 
 eventRouter.put('/events/:id', EventController.update);
 
-// eventRouter.delete('/cities/:id', EventController.delete);
+// eventRouter.delete('/events/:id', EventController.delete);
 
 export default eventRouter;
