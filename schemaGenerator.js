@@ -18,4 +18,5 @@ let MongooseSchema = generateSchema.mongoose({
     background: '../urlToBG',
   },
 });
-console.log(MongooseSchema);
+// console.log(MongooseSchema);
+console.log();
