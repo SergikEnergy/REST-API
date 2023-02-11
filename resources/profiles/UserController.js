@@ -1,50 +1,24 @@
 import UserService from './UserService.js';
 
 class UserController {
-  async create(req, res) {
-    try {
-      const user = await UserService.create(req.body);
-      res.json(user);
-    } catch (error) {
-      let errorObj = { error: error.message, data: false };
-      res.status(500).json(errorObj);
-      console.log('ERROR BY CREATING USER');
-    }
+  async create(body) {
+    const user = await UserService.create(body);
+    return user;
   }
 
-  async getInfo(req, res) {
-    try {
-      const id = req.params.id;
-      const currentUser = await UserService.getInfo(id);
-      return res.json(currentUser);
-    } catch (error) {
-      console.log(error);
-      let errorObj = { error: error.message, data: false };
-      res.status(500).json(errorObj);
-      console.log('ERROR BY GETTTING USER wit ID');
-    }
+  async getInfo(id) {
+    const currentUser = await UserService.getInfo(id);
+    return currentUser;
   }
 
-  async update(req, res) {
-    try {
-      const id = req.params.id;
-      const updatedUser = await UserService.update(id, req.body);
-      return res.json(updatedUser);
-    } catch (error) {
-      let errorObj = { error: error.message, data: false };
-      res.status(500).json(errorObj);
-      console.log('ERROR BY UPDATING');
-    }
+  async update(id, body) {
+    const updatedUser = await UserService.update(id, body);
+    return updatedUser;
   }
-  async delete(req, res) {
-    try {
-      const id = req.params.id;
-      const user = await UserService.delete(id);
-    } catch (error) {
-      let errorObj = { error: error.message, data: false };
-      res.status(500).json(errorObj);
-      console.log('ERROR BY DELETING');
-    }
+
+  async delete(id) {
+    const user = await UserService.delete(id);
+    return user;
   }
 }
 
