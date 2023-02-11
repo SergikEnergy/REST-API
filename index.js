@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 
 import router from './resources/cities/Router.js';
 import userRouter from './resources/profiles/userRouter.js';
@@ -13,6 +14,13 @@ const PORT = 5000;
 
 const app = express();
 
+// const allowedOrigins = ['http://localhost:3000', 'http://localhost:8080'];
+// const corsOptions = {
+//   origin: allowedOrigins,
+// };
+// app.use(cors(corsOptions));
+
+app.use(cors()); //allow all CORS
 app.use(express.json());
 app.use(express.static('static'));
 app.use(fileUpload({}));
