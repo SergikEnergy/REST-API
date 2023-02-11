@@ -4,8 +4,7 @@ dotenv.config();
 
 export default async function connectDB() {
   try {
-    const DB_URL = 'mongodb+srv://testtesttest:Test1234Test@clusterfirst.l8amfjw.mongodb.net/GoSportBase';
-    const MONGO_DB = process.env.MONGO_DB_URL || DB_URL;
+    const MONGO_DB = process.env.MONGO_DB_URL;
 
     mongoose.set('strictQuery', false);
     await mongoose.connect(MONGO_DB, { useUnifiedTopology: true, useNewUrlParser: true });
