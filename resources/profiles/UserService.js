@@ -1,10 +1,16 @@
 import Profile from './Profile.js';
+import FileService from './FileService.js';
 
 class UserService {
-  async create(user) {
+  async create(user, avatar) {
     const isExist = await this.checkExisting(user);
     if (isExist.length === 0) {
-      const createdUser = await Profile.create(user);
+      if (!avatar) {
+        const createdUser = await Profile.create({ ...user, avatar: 'default avatar.png' });
+        return createdUser;
+      }
+      const fileName = FileService.saveFile(user.nickName, avatar);
+      const createdUser = await Profile.create({ ...user, avatar: fileName });
       return createdUser;
     } else return { error: 'this user already exists in database' };
   }
@@ -34,7 +40,7 @@ class UserService {
   }
 
   async checkExisting(user) {
-    const checkUser = await Profile.find({ nick_name: `${user.nick_name}` });
+    const checkUser = await Profile.find({ nickName: `${user.nickName}` });
     return checkUser;
   }
 }

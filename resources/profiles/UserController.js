@@ -1,8 +1,8 @@
 import UserService from './UserService.js';
 
 class UserController {
-  async create(body) {
-    const user = await UserService.create(body);
+  async create(body, file) {
+    const user = await UserService.create(body, file);
     return user;
   }
 

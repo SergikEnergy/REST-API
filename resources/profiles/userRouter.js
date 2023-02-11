@@ -6,7 +6,9 @@ const userRouter = new Router();
 userRouter.post('/profiles', async (req, res, next) => {
   try {
     const body = req.body;
-    const newUser = await UserController.create(body);
+    const file = req.files && req.files.avatar ? req.files.avatar : '';
+    console.log(file);
+    const newUser = await UserController.create(body, file);
     return res.status(200).json(newUser);
   } catch (error) {
     let errorObj = { error: error.message, data: false };

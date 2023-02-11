@@ -5,6 +5,8 @@ import userRouter from './resources/profiles/userRouter.js';
 import eventRouter from './resources/events/eventRouter.js';
 import placeRouter from './resources/places/placeRouter.js';
 
+import fileUpload from 'express-fileupload';
+
 import connectDB from './connectDB.js';
 
 const PORT = 5000;
@@ -12,6 +14,8 @@ const PORT = 5000;
 const app = express();
 
 app.use(express.json());
+app.use(express.static('static'));
+app.use(fileUpload({}));
 app.use('/api', router);
 app.use('/api', userRouter);
 app.use('/api', eventRouter);

@@ -11,12 +11,10 @@ const Profile = new mongoose.Schema({
     first_name: { type: String, required: false, default: '' },
     last_name: { type: String, required: false, default: '' },
 
-    games: { type: [String], required: true },
+    games: { type: [String], required: true, default: [] },
   },
-  urlsToImg: {
-    avatar: { type: String, required: false },
-    background: { type: String, required: false },
-  },
+  avatar: { type: String, required: true, default: '' },
+  background: { type: String, required: false },
 });
 
 export default mongoose.model('Profile', Profile);
