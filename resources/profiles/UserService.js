@@ -23,12 +23,19 @@ class UserService {
     return currentUser;
   }
 
-  async update(id, user) {
+  async update(id, user, file = '') {
     if (!id) {
       throw new Error('You do not show id');
     }
-    const updatedUser = await Profile.findByIdAndUpdate(id, user, { new: true });
-    return updatedUser;
+    const previousImg = await this.getInfo(id);
+    if (!file) {
+      const updatedUser = await Profile.findByIdAndUpdate(id, user, { new: true });
+      return updatedUser;
+    } else {
+      const fileName = FileService.updateFile(user.nickName, file, previousImg.avatar);
+      const updatedUser = await Profile.findByIdAndUpdate(id, { ...user, avatar: fileName }, { new: true });
+      return updatedUser;
+    }
   }
 
   async delete(id) {

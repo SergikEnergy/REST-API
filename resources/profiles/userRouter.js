@@ -36,7 +36,8 @@ userRouter.put('/profiles/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
     const body = req.body;
-    const updatedUser = await UserController.update(id, body);
+    const file = req.files ? req.files : '';
+    const updatedUser = await UserController.update(id, body, file);
     return res.status(200).json(updatedUser);
   } catch (error) {
     let errorObj = { error: error.message, data: false };
