@@ -4,6 +4,7 @@ import PasswordHandler from './password.js';
 
 class UserService {
   async create(user, avatar) {
+    //check existing userName
     const userName = user.nickName;
     const isExist = await this.checkExisting(user);
     if (isExist.length !== 0) {

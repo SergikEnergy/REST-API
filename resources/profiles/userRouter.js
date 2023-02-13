@@ -1,22 +1,37 @@
 import Router from 'express';
+import { check, validationResult } from 'express-validator';
 import UserController from './UserController.js';
 
 const userRouter = new Router();
 
 //register request
-userRouter.post('/profiles', async (req, res, next) => {
-  try {
-    const body = req.body;
-    const file = req.files && req.files.avatar ? req.files.avatar : '';
-    console.log(file);
-    const newUser = await UserController.create(body, file);
-    return res.status(200).json(newUser);
-  } catch (error) {
-    let errorObj = { error: error.message, data: false };
-    res.status(500).json(errorObj);
-    console.log('ERROR BY CREATING USER AND REGISTRATION');
+userRouter.post(
+  '/profiles',
+  [
+    check('nickName', 'UserName must not be empty.').notEmpty(),
+    check('password', 'Password must include more than 4 and less than 10 symbols').isLength({
+      min: 4,
+      max: 10,
+    }),
+  ],
+  async (req, res, next) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ err: 'Error by validation input dates', errors });
+      }
+      const body = req.body;
+      const file = req.files && req.files.avatar ? req.files.avatar : '';
+      console.log(file);
+      const newUser = await UserController.create(body, file);
+      return res.status(200).json(newUser);
+    } catch (error) {
+      let errorObj = { error: error.message, data: false };
+      res.status(500).json(errorObj);
+      console.log('ERROR BY CREATING USER AND REGISTRATION');
+    }
   }
-});
+);
 //login request
 userRouter.get('/login', async (req, res, next) => {
   try {
