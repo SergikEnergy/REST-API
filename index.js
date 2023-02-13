@@ -5,6 +5,7 @@ import router from './resources/cities/Router.js';
 import userRouter from './resources/profiles/userRouter.js';
 import eventRouter from './resources/events/eventRouter.js';
 import placeRouter from './resources/places/placeRouter.js';
+import authRouter from './resources/authorization/authRouter.js';
 
 import fileUpload from 'express-fileupload';
 
@@ -28,6 +29,7 @@ app.use('/api', router);
 app.use('/api', userRouter);
 app.use('/api', eventRouter);
 app.use('/api', placeRouter);
+app.use('/api', authRouter);
 
 async function startApp() {
   try {

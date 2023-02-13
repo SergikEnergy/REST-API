@@ -3,6 +3,7 @@ import UserController from './UserController.js';
 
 const userRouter = new Router();
 
+//register request
 userRouter.post('/profiles', async (req, res, next) => {
   try {
     const body = req.body;
@@ -13,7 +14,20 @@ userRouter.post('/profiles', async (req, res, next) => {
   } catch (error) {
     let errorObj = { error: error.message, data: false };
     res.status(500).json(errorObj);
-    console.log('ERROR BY CREATING USER');
+    console.log('ERROR BY CREATING USER AND REGISTRATION');
+  }
+});
+//login request
+userRouter.get('/login', async (req, res, next) => {
+  try {
+    const body = req.body;
+    //body - 2 fields userName and password
+    const user = await UserController.logIn(body);
+    return res.status(200).json(user);
+  } catch (err) {
+    let errorObj = { error: err.message, data: 'failed login' };
+    res.status(500).json(errorObj);
+    console.log('Login error...');
   }
 });
 

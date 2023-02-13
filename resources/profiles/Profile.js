@@ -14,7 +14,7 @@ const Profile = new mongoose.Schema({
     games: { type: [String], required: true, default: [] },
   },
   avatar: { type: String, required: true, default: '' },
-  background: { type: String, required: false },
+  password: { type: String, required: true },
 });
 
 export default mongoose.model('Profile', Profile);
