@@ -9,8 +9,8 @@ class UserService {
     const isExist = await this.checkExisting(user);
     if (isExist.length !== 0) {
       return {
-        message: 'User with such name already exists...',
-        data: false,
+        error: 'User with such name already exists...',
+        data: 'user',
       };
     }
     //code password with jwt library
@@ -38,9 +38,10 @@ class UserService {
   async logIn(user) {
     const currentUser = this.checkExisting(user);
     if (!currentUser && currentUser.nickName) {
-      return { error: 'user dos not exists on database' };
+      return { error: 'user dos not exists on database', data: 'userName' };
     }
     const { nickName, password } = user;
+    // console.log(nickName);
     const foundedUser = await Profile.find({ nickName: `${nickName}` });
     if (foundedUser.length === 0) {
       return { error: 'user dos not exists on database', data: 'userName' };
@@ -51,7 +52,7 @@ class UserService {
       return foundedUser;
     }
     if (password !== passwordFromBase) {
-      return { err: `you typed incorrect password`, data: 'password' };
+      return { error: `you typed incorrect password`, data: 'password' };
     }
   }
 

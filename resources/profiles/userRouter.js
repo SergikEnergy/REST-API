@@ -33,10 +33,11 @@ userRouter.post(
   }
 );
 //login request
-userRouter.get('/login', async (req, res, next) => {
+userRouter.post('/login', async (req, res, next) => {
   try {
     const body = req.body;
-    //body - 2 fields userName and password
+    // console.log(body);
+    //body - 2 fields nickName and password
     const user = await UserController.logIn(body);
     return res.status(200).json(user);
   } catch (err) {

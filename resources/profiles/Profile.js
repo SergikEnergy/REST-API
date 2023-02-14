@@ -6,8 +6,8 @@ const Profile = new mongoose.Schema({
   events: { type: [String], required: true, default: [] },
   nickName: { type: String, required: true, unique: true },
   personalData: {
-    weight: { type: Number, required: false },
-    height: { type: Number, required: false },
+    weight: { type: Number, required: false, default: 0 },
+    height: { type: Number, required: false, default: 0 },
     first_name: { type: String, required: false, default: '' },
     last_name: { type: String, required: false, default: '' },
 
