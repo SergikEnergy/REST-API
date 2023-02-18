@@ -11,6 +11,11 @@ class UserController {
     return currentUser;
   }
 
+  async logIn(body) {
+    const checkUser = await UserService.logIn(body);
+    return checkUser;
+  }
+
   async update(id, body, file) {
     const updatedUser = await UserService.update(id, body, file);
     return updatedUser;
