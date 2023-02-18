@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "debug": "node --inspect-brk index.js"
   },
   "author": "serg",
   "license": "ISC",

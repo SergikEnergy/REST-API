@@ -1,8 +1,27 @@
 import Router from 'express';
+import { authMiddleware } from '../../authMiddleware.js';
+
+import jwt from 'jsonwebtoken';
+import authParams from '../../authConfig.js';
+const { secret, cookies_key } = authParams;
+console.log(secret, cookies_key);
+console.log(authParams);
+// const cookies_key = 'session_id';
+
 import { check, validationResult } from 'express-validator';
 import UserController from './UserController.js';
 
 const userRouter = new Router();
+
+const generateAccessToken = (username) => {
+  let payload = {
+    username: username,
+  };
+  console.log(secret);
+  let token = jwt.sign(payload, secret, { expiresIn: '1h' });
+  console.log(token);
+  return token;
+};
 
 //register request
 userRouter.post(
@@ -33,22 +52,44 @@ userRouter.post(
   }
 );
 //login request
-userRouter.post('/login', async (req, res, next) => {
-  try {
-    const body = req.body;
-    // console.log(body);
-    //body - 2 fields nickName and password
-    const user = await UserController.logIn(body);
-    return res.status(200).json(user);
-  } catch (err) {
-    let errorObj = { error: err.message, data: 'failed login' };
-    res.status(500).json(errorObj);
-    console.log('Login error...');
+userRouter.post(
+  '/login',
+  [
+    check('nickName', 'UserName must not be empty.').notEmpty(),
+    check('password', 'Password must include more than 4 and less than 10 symbols').isLength({
+      min: 4,
+      max: 10,
+    }),
+  ],
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+
+      //body - 2 fields nickName and password
+      const user = await UserController.logIn(body);
+      let token = generateAccessToken(user[0].nickName);
+      res.cookie(cookies_key, token);
+      return res.status(200).json(user);
+    } catch (err) {
+      let errorObj = { error: err.message, data: 'failed login' };
+      res.status(500).json(errorObj);
+      console.log('Login error...');
+    }
   }
-});
+);
 
 //not implement getAll because we haven't got an admin
 //and user can't show all profiles
+
+userRouter.get('/list', authMiddleware, async function (req, res, next) {
+  let data = [
+    { name: 'Silent Hill', year: '1998' },
+    { name: 'Hitman 2', year: '2008' },
+    { name: 'HOMM3', year: '1999' },
+    { name: 'Kazaki', year: '2002' },
+  ];
+  res.send(JSON.stringify(data));
+});
 
 userRouter.get('/profiles/:id', async (req, res, next) => {
   try {
