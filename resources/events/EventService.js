@@ -9,9 +9,34 @@ class EventService {
     } else return { error: 'this event already exists in database' };
   }
 
-  async getAll() {
-    const events = await Event.find();
-    return events;
+  async getAll(params) {
+    if (params.date && params.restPlayers) {
+      const events = await Event.find({
+        date: `${params.date}`,
+        kind: `${params.kind}`,
+        rest_players: { $gt: params.restPlayers },
+      });
+      return events;
+    }
+    if (params.date) {
+      const events = await Event.find({
+        date: `${params.date}`,
+        kind: `${params.kind}`,
+      });
+      return events;
+    }
+    if (params.restPlayers) {
+      const events = await Event.find({
+        kind: `${params.kind}`,
+        rest_players: { $gt: params.restPlayers },
+      });
+      return events;
+    } else {
+      const events = await Event.find({
+        kind: `${params.kind}`,
+      });
+      return events;
+    }
   }
 
   async getOne(id) {
