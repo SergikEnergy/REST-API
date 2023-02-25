@@ -10,28 +10,26 @@ class EventService {
   }
 
   async getAll(params) {
-    if (params.date && params.restPlayers) {
+    if (params.date && params.restplayers) {
       const events = await Event.find({
         date: `${params.date}`,
         kind: `${params.kind}`,
-        rest_players: { $gt: params.restPlayers },
+        rest_players: { $gt: params.restplayers - 1 },
       });
       return events;
-    }
-    if (params.date) {
+    } else if (params.date) {
       const events = await Event.find({
         date: `${params.date}`,
         kind: `${params.kind}`,
       });
       return events;
-    }
-    if (params.restPlayers) {
+    } else if (params.restplayers) {
       const events = await Event.find({
         kind: `${params.kind}`,
-        rest_players: { $gt: params.restPlayers },
+        rest_players: { $gt: params.restplayers - 1 },
       });
       return events;
-    } else {
+    } else if (params.kind) {
       const events = await Event.find({
         kind: `${params.kind}`,
       });

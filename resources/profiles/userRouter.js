@@ -60,8 +60,11 @@ userRouter.post(
       const body = req.body;
       //body - 2 fields nickName and password
       const user = await UserController.logIn(body);
-      let token = generateAccessToken(user[0].nickName);
-      res.cookie(cookies_key, token);
+      // if (user && user[0].nickName) {
+      //   let token = generateAccessToken(user[0].nickName);
+      //   res.cookie(cookies_key, token);
+      // }
+
       return res.status(200).json(user);
     } catch (err) {
       let errorObj = { error: err.message, data: 'failed login' };
