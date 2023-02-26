@@ -6,8 +6,8 @@ class EventController {
     return event;
   }
 
-  async getAll() {
-    const events = await EventService.getAll();
+  async getAll(params) {
+    const events = await EventService.getAll(params);
     return events;
   }
 

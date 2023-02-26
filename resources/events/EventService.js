@@ -9,9 +9,33 @@ class EventService {
     } else return { error: 'this event already exists in database' };
   }
 
-  async getAll() {
-    const events = await Event.find();
-    return events;
+  async getAll(params) {
+    debugger;
+    if (params.dateevent && params.restplayers && params.kind) {
+      const events = await Event.find({
+        date: params.dateevent,
+        kind: params.kind,
+        rest_players: { $gt: Number(params.restplayers) - 1 },
+      });
+      return events;
+    } else if (params.dateevent && params.kind && !params.restplayers) {
+      const events = await Event.find({
+        date: params.dateevent,
+        kind: params.kind,
+      });
+      return events;
+    } else if (params.restplayers && params.kind && !params.dateevent) {
+      const events = await Event.find({
+        kind: params.kind,
+        rest_players: { $gt: Number(params.restplayers) - 1 },
+      });
+      return events;
+    } else if (params.kind && !params.dateevent && !params.restplayers) {
+      const events = await Event.find({
+        kind: params.kind,
+      });
+      return events;
+    }
   }
 
   async getOne(id) {

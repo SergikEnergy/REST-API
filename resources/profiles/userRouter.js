@@ -4,9 +4,6 @@ import { authMiddleware } from '../../authMiddleware.js';
 import jwt from 'jsonwebtoken';
 import authParams from '../../authConfig.js';
 const { secret, cookies_key } = authParams;
-console.log(secret, cookies_key);
-console.log(authParams);
-// const cookies_key = 'session_id';
 
 import { check, validationResult } from 'express-validator';
 import UserController from './UserController.js';
@@ -17,9 +14,7 @@ const generateAccessToken = (username) => {
   let payload = {
     username: username,
   };
-  console.log(secret);
   let token = jwt.sign(payload, secret, { expiresIn: '1h' });
-  console.log(token);
   return token;
 };
 
@@ -41,7 +36,6 @@ userRouter.post(
       }
       const body = req.body;
       const file = req.files && req.files.avatar ? req.files.avatar : '';
-      console.log(file);
       const newUser = await UserController.create(body, file);
       return res.status(200).json(newUser);
     } catch (error) {
@@ -64,11 +58,13 @@ userRouter.post(
   async (req, res, next) => {
     try {
       const body = req.body;
-
       //body - 2 fields nickName and password
       const user = await UserController.logIn(body);
-      let token = generateAccessToken(user[0].nickName);
-      res.cookie(cookies_key, token);
+      // if (user && user[0].nickName) {
+      //   let token = generateAccessToken(user[0].nickName);
+      //   res.cookie(cookies_key, token);
+      // }
+
       return res.status(200).json(user);
     } catch (err) {
       let errorObj = { error: err.message, data: 'failed login' };
