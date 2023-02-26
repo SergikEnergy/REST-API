@@ -16,6 +16,7 @@ eventRouter.post('/events', async (req, res, next) => {
 
 eventRouter.get('/events', async (req, res, next) => {
   try {
+
     const params = req.headers;
     const events = await EventController.getAll(params);
     return res.status(200).json(events);
