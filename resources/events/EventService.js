@@ -39,7 +39,8 @@ class EventService {
 
   async getThree() {
     const events = await Event.find();
-    return events;
+    const example = [events[0], events[1], events[2]];
+    return example;
   }
 
   async getOne(id) {

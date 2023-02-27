@@ -28,8 +28,7 @@ eventRouter.get('/events', async (req, res, next) => {
 eventRouter.get('/events/three', async (req, res, next) => {
   try {
     const events = await EventController.getThree();
-    const threeEvents = [events[0], events[1], events[2]];
-    return res.status(200).json(threeEvents);
+    return res.status(200).json(events);
   } catch (error) {
     let errorObj = { error: error.message, data: false };
     res.status(500).json(errorObj);
