@@ -90,7 +90,7 @@ userRouter.get('/list', authMiddleware, async function (req, res, next) {
 userRouter.get('/profiles/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
-    const user = UserController.getInfo(id);
+    const user = await UserController.getInfo(id);
     return res.status(200).json(user);
   } catch (error) {
     let errorObj = { error: error.message, data: false };
