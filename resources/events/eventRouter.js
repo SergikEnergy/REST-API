@@ -25,7 +25,7 @@ eventRouter.get('/events', async (req, res, next) => {
     console.log('ERROR BY GETTING ALL EVENTS');
   }
 });
-eventRouter.getThree('/events/three', async (req, res, next) => {
+eventRouter.get('/events/three', async (req, res, next) => {
   try {
     const events = await EventController.getThree();
     const threeEvents = [events[0], events[1], events[2]];
