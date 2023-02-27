@@ -10,7 +10,6 @@ class EventService {
   }
 
   async getAll(params) {
-    debugger;
     if (params.dateevent && params.restplayers && params.kind) {
       const events = await Event.find({
         date: params.dateevent,
@@ -36,6 +35,11 @@ class EventService {
       });
       return events;
     }
+  }
+
+  async getThree() {
+    const events = await Event.find();
+    return events;
   }
 
   async getOne(id) {

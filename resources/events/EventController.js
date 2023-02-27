@@ -11,6 +11,11 @@ class EventController {
     return events;
   }
 
+  async getThree() {
+    const events = await EventService.getThree();
+    return events;
+  }
+
   async getOne(id) {
     const uniqueEvent = await EventService.getOne(id);
     return uniqueEvent;
