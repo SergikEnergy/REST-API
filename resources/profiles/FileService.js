@@ -20,7 +20,7 @@ class FileService {
       const fileName = name + `${ext}`;
       const pathToFile = path.resolve('static', fileName);
       const pathToOldFile = path.resolve('static', oldFileName);
-      if (oldFileName !== 'defaultAvatar.pmg') {
+      if (oldFileName !== 'defaultAvatar.png') {
         fs.unlink(pathToOldFile, (err) => {
           if (err) {
             console.log(err, 'error by deleting file');
